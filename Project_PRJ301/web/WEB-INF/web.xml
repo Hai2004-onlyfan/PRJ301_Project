@@ -2,11 +2,31 @@
 <web-app version="6.0" xmlns="https://jakarta.ee/xml/ns/jakartaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/web-app_6_0.xsd">
     <servlet>
         <servlet-name>LoginController</servlet-name>
-        <servlet-class>controller.auth.LoginController</servlet-class>
+        <servlet-class>controller.authentication.LoginController</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>LogoutController</servlet-name>
-        <servlet-class>controller.auth.LogoutController</servlet-class>
+        <servlet-class>controller.authentication.LogoutController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>EmployeeListController</servlet-name>
+        <servlet-class>controller.employee.EmployeeListController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>WelcomeController</servlet-name>
+        <servlet-class>controller.authentication.WelcomeController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>CreateLeaveRequestController</servlet-name>
+        <servlet-class>controller.leaverequest.CreateLeaveRequestController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ViewLeaveRequestByDepartmentController</servlet-name>
+        <servlet-class>controller.leaverequest.ViewLeaveRequestByDepartmentController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ViewEmployeeFindByDept</servlet-name>
+        <servlet-class>controller.employee.ViewEmployeeFindByDept</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>LoginController</servlet-name>
@@ -16,4 +36,27 @@
         <servlet-name>LogoutController</servlet-name>
         <url-pattern>/logout</url-pattern>
     </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>EmployeeListController</servlet-name>
+        <url-pattern>/employees/list</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>WelcomeController</servlet-name>
+        <url-pattern>/welcome</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CreateLeaveRequestController</servlet-name>
+        <url-pattern>/leaverequest/create</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ViewLeaveRequestByDepartmentController</servlet-name>
+        <url-pattern>/leaverequest/findbydept</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ViewEmployeeFindByDept</servlet-name>
+        <url-pattern>/employee/view</url-pattern>
+    </servlet-mapping>
+    <welcome-file-list>
+        <welcome-file>view/auth/login.jsp</welcome-file>
+    </welcome-file-list>
 </web-app>

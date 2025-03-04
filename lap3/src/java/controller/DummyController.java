@@ -3,29 +3,42 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
 
-package controller.auth;
+package controller;
 
+import dal.DBContext;
+import dal.DummyDBContext;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
-import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import models.User;
+import java.util.ArrayList;
+import model.Dummy;
 
 /**
  *
  * @author ADMIN
  */
-public  abstract class RequiredAuthenticationBaseController extends HttpServlet {
+public class DummyController extends HttpServlet {
    
-    private User getLoggedUser(HttpServletRequest request)
-    {
-      User user = (User)request.getSession().getAttribute("user");
-      return user;
-    }
+    /** 
+     * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
+    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
+    throws ServletException, IOException {
+         DBContext<Dummy> db = new DummyDBContext();
+        ArrayList<Dummy> dummys = db.list();
+        request.setAttribute("dummys", dummys);
+        request.getRequestDispatcher("../view/dummy/list.jsp").forward(request, response);
+       
+        }
     
+
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /** 
      * Handles the HTTP <code>GET</code> method.
@@ -37,20 +50,8 @@ public  abstract class RequiredAuthenticationBaseController extends HttpServlet 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        User user = getLoggedUser(request);
-        if( user != null)
-        {
-            doGet(request, response, user);
-        }
-        else
-        {
-            response.getWriter().println("access denied!");
-        }
-        
+        processRequest(request, response);
     } 
-    
-    protected abstract void doGet(HttpServletRequest request, HttpServletResponse response,User user)
-    throws ServletException, IOException;
 
     /** 
      * Handles the HTTP <code>POST</code> method.
@@ -62,19 +63,8 @@ public  abstract class RequiredAuthenticationBaseController extends HttpServlet 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-         User user = getLoggedUser(request);
-        if( user != null)
-        {
-            //do biz
-            doPost(request, response, user);
-        }
-        else
-        {
-            response.getWriter().println("access denied!");
-        }
+        processRequest(request, response);
     }
-    protected abstract void doPost(HttpServletRequest request, HttpServletResponse response,User user)
-    throws ServletException, IOException;
 
     /** 
      * Returns a short description of the servlet.
