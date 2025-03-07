@@ -1,30 +1,12 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package models;
 
 import java.util.ArrayList;
 
-/**
- *
- * @author Admin
- */
 public class User {
     private String username;
     private String password;
     private String displayname;
     private Employee e;
-
-    public Employee getE() {
-        return e;
-    }
-
-    public void setE(Employee e) {
-        this.e = e;
-    }
-    
-    
     private ArrayList<Role> roles = new ArrayList<>();
 
     public ArrayList<Role> getRoles() {
@@ -34,7 +16,14 @@ public class User {
     public void setRoles(ArrayList<Role> roles) {
         this.roles = roles;
     }
-    
+
+    public Employee getE() {
+        return e;
+    }
+
+    public void setE(Employee e) {
+        this.e = e;
+    }
 
     public String getUsername() {
         return username;
@@ -60,9 +49,23 @@ public class User {
         this.displayname = displayname;
     }
 
+    // Kiểm tra vai trò Director
+    public boolean isDirector() {
+        return roles.stream().anyMatch(role -> role.getName().equals("director"));
+    }
+
+    // Kiểm tra vai trò Manager
+    public boolean isManager() {
+        return roles.stream().anyMatch(role -> role.getName().equals("manager"));
+    }
+
+    // Kiểm tra vai trò Employee
+    public boolean isEmployee() {
+        return roles.stream().anyMatch(role -> role.getName().equals("staff"));
+    }
+
     @Override
     public String toString() {
         return "User{" + "username=" + username + ", password=" + password + ", displayname=" + displayname + ", e=" + e + ", roles=" + roles + '}';
     }
-    
 }

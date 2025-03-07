@@ -77,8 +77,8 @@
         <h1>Welcome to Company ABC</h1>
         <p class="lead">Trang quản lý dành cho Employee</p>
         <div class="header-links">
-            <a href="homeE.jsp" class="btn-home-logout">Home</a>
-            <a href="login.jsp" class="btn-home-logout">Logout</a>
+            <a href="employeeDashboard.jsp" class="btn-home-logout">Home</a>
+            <a href="../../login" class="btn-home-logout">Logout</a>
         </div>
     </header>
 
@@ -115,7 +115,8 @@
                     </div>
                     <div class="card-body text-center">
                         <p class="card-text">Tạo đơn xin nghỉ phép khi bạn cần nghỉ.</p>
-                        <a href="leaveRequest.jsp" class="btn btn-custom">Tạo Đơn</a>
+                        <a href="../../leaverequest/create" class="btn btn-custom">Tạo Đơn</a>
+                       
                     </div>
                 </div>
             </div>
@@ -128,7 +129,8 @@
                     </div>
                     <div class="card-body text-center">
                         <p class="card-text">Xem các đơn xin nghỉ của bạn đã được duyệt.</p>
-                        <a href="viewRequest.jsp" class="btn btn-custom">Xem Đơn</a>
+                        <a href="../../leaverequest/findbydept" class="btn btn-custom">Xem Đơn</a>
+                        
                     </div>
                 </div>
             </div>

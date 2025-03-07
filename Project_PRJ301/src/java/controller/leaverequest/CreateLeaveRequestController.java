@@ -48,6 +48,9 @@ public class CreateLeaveRequestController extends RequiredAuthenticationBaseCont
         
         LeaveRequestDBContext db = new LeaveRequestDBContext();
         db.insert(lr);
+         req.setAttribute("success", true);
+          req.getRequestDispatcher("../view/leaverequest/create.jsp").forward(req, resp);
+    
         System.out.println("inserted successful!");
     }
 

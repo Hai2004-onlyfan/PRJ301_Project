@@ -29,6 +29,24 @@
         .filter-section {
             margin-bottom: 20px;
         }
+        .header-links {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        .btn-home-logout {
+            background-color: #007bff;
+            color: white;
+            font-size: 18px;
+            border-radius: 30px;
+            padding: 10px 25px;
+            margin-right: 15px;
+            transition: background-color 0.3s ease;
+        }
+        .btn-home-logout:hover {
+            background-color: #0056b3;
+        }
     </style>
 </head>
 <body>
@@ -36,6 +54,13 @@
     <!-- Header -->
     <header class="bg-primary text-white text-center py-4 mb-4">
         <h1>Danh Sách Nhân Viên</h1>
+        <p class="lead">Trang quản lý danh sách nhân viên</p>
+        
+        <!-- Thêm các nút Home và Logout bên dưới tiêu đề -->
+        <div class="header-links">
+            <a href="home.jsp" class="btn-home-logout">Home</a>
+            <a href="login.jsp" class="btn-home-logout">Logout</a>
+        </div>
     </header>
 
     <!-- Main Content -->
@@ -76,6 +101,7 @@
                             <th>Ngày Sinh</th>
                             <th>Phòng Ban</th>
                             <th>Trưởng Phòng</th>
+                            <th>Số Điện Thoại</th> <!-- Thêm cột Số điện thoại -->
                         </tr>
                     </thead>
                     <tbody>
@@ -86,6 +112,7 @@
                             <td>1990-01-01</td>
                             <td>IT</td>
                             <td>Trần Văn B</td>
+                            <td>0912345678</td> <!-- Số điện thoại -->
                         </tr>
                         <tr>
                             <td>2</td>
@@ -93,6 +120,7 @@
                             <td>1989-02-15</td>
                             <td>IT</td>
                             <td>Trần Văn B</td>
+                            <td>0918765432</td> <!-- Số điện thoại -->
                         </tr>
                         <tr>
                             <td>3</td>
@@ -100,6 +128,7 @@
                             <td>1995-03-22</td>
                             <td>IT</td>
                             <td>Trần Văn B</td>
+                            <td>0912233445</td> <!-- Số điện thoại -->
                         </tr>
                         <tr>
                             <td>4</td>
@@ -107,6 +136,7 @@
                             <td>1992-04-30</td>
                             <td>IT</td>
                             <td>Trần Văn B</td>
+                            <td>0919988776</td> <!-- Số điện thoại -->
                         </tr>
                         <tr>
                             <td>5</td>
@@ -114,6 +144,7 @@
                             <td>1988-06-12</td>
                             <td>IT</td>
                             <td>Trần Văn B</td>
+                            <td>0911122334</td> <!-- Số điện thoại -->
                         </tr>
                     </tbody>
                 </table>

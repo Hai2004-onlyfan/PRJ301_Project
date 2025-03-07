@@ -5,7 +5,7 @@
 package models;
 
 import java.util.ArrayList;
-
+import java.sql.*;
 /**
  *
  * @author ADMIN
@@ -14,6 +14,8 @@ public class Employee {
     private int id;
     private String name;
     private Department dept;
+    private String phone;
+    private Date dob;
     private User activeuser;
     private Employee manager;
     private ArrayList<Employee> directstaffs = new ArrayList<>();
@@ -21,6 +23,22 @@ public class Employee {
 
     public ArrayList<Employee> getDirectstaffs() {
         return directstaffs;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public Date getDob() {
+        return dob;
+    }
+
+    public void setDob(Date dob) {
+        this.dob = dob;
     }
 
     public void setDirectstaffs(ArrayList<Employee> directstaffs) {

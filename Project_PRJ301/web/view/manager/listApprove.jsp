@@ -42,6 +42,23 @@
         .table th {
             text-align: center;
         }
+        .action-buttons {
+            display: flex;
+            justify-content: space-around;
+        }
+        .action-buttons a {
+            padding: 5px 15px;
+            border-radius: 5px;
+            text-decoration: none;
+        }
+        .btn-accept {
+            background-color: #28a745;
+            color: white;
+        }
+        .btn-reject {
+            background-color: #dc3545;
+            color: white;
+        }
     </style>
 </head>
 <body>
@@ -84,6 +101,7 @@
                             <th>Created By</th>
                             <th>Created Date</th>
                             <th>Status</th>
+                            <th>Action</th> <!-- Cột hành động -->
                         </tr>
                     </thead>
                     <tbody>
@@ -103,6 +121,11 @@
                                         <c:otherwise>Accepted</c:otherwise>
                                     </c:choose>
                                 </td>
+                                <td class="action-buttons">
+                                    <!-- Luôn hiển thị nút này nếu người dùng có quyền là Manager -->
+                                    <a href="acceptLeaveRequest?requestId=${l.id}" class="btn btn-accept">Accept</a>
+                                    <a href="rejectLeaveRequest?requestId=${l.id}" class="btn btn-reject">Reject</a>
+                                </td>
                             </tr>
                         </c:forEach>
                     </tbody>
@@ -117,3 +140,4 @@
 
 </body>
 </html>
+

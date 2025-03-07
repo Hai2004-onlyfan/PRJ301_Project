@@ -115,7 +115,7 @@
                     </div>
                     <div class="card-body text-center">
                         <p class="card-text">Tạo đơn xin nghỉ phép khi bạn cần nghỉ.</p>
-                        <a href="leaveRequest.jsp" class="btn btn-custom">Tạo Đơn</a>
+                        <a href="createLeaveRequest.jsp" class="btn btn-custom">Tạo Đơn</a>
                     </div>
                 </div>
             </div>
@@ -128,7 +128,7 @@
                     </div>
                     <div class="card-body text-center">
                         <p class="card-text">Xem các đơn xin nghỉ của bạn đã được duyệt.</p>
-                        <a href="viewRequest.jsp" class="btn btn-custom">Xem Đơn</a>
+                        <a href="viewLeaveRequests.jsp" class="btn btn-custom">Xem Đơn</a>
                     </div>
                 </div>
             </div>

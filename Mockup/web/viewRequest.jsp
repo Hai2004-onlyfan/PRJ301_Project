@@ -1,3 +1,5 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html lang="vi">
 <head>
@@ -28,6 +30,9 @@
             font-weight: bold;
             border-top-left-radius: 10px;
             border-top-right-radius: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
 
         .card-body {
@@ -102,6 +107,10 @@
         <div class="card">
             <div class="card-header text-center">
                 Xem Đơn Xin Nghỉ
+                <div>
+                    <a href="homeE.jsp" class="btn btn-custom">Home</a>
+                    <a href="logout.jsp" class="btn btn-custom">Logout</a>
+                </div>
             </div>
             <div class="card-body">
 
@@ -120,6 +129,7 @@
                         </tr>
                     </thead>
                     <tbody>
+                        <!-- Dữ liệu đơn xin nghỉ cứng -->
                         <tr>
                             <td><a href="#">Xin nghỉ cưới...</a></td>
                             <td>1/1/2025</td>
@@ -127,9 +137,13 @@
                             <td>Mr F</td>
                             <td><span class="text-warning">In Progress</span></td>
                             <td>---</td>
-                            <td><button class="btn btn-delete" onclick="deleteRequest(this)">Xóa</button></td>
-                            <!-- Hiển thị nút View cho Manager -->
-                            <td><button class="btn btn-view" onclick="viewRequest(this)">View</button></td>
+                            <td>
+                                <button class="btn btn-delete" onclick="deleteRequest(this)">Xóa</button>
+                            </td>
+                            <!-- Liên kết tới trang xem chi tiết đơn xin nghỉ -->
+                            <td>
+                                <a href="viewReqForMag.jsp" class="btn btn-view">View</a>
+                            </td>
                         </tr>
                         <tr>
                             <td><a href="#">Xin nghỉ đi chơi</a></td>
@@ -138,16 +152,34 @@
                             <td>Mr E</td>
                             <td><span class="text-danger">Rejected</span></td>
                             <td>Mr B</td>
-                            <td><button class="btn btn-delete" onclick="deleteRequest(this)">Xóa</button></td>
-                            <!-- Hiển thị nút View cho Manager -->
-                            <td><button class="btn btn-view" onclick="viewRequest(this)">View</button></td>
+                            <td>
+                                <button class="btn btn-delete" onclick="deleteRequest(this)">Xóa</button>
+                            </td>
+                            <!-- Liên kết tới trang xem chi tiết đơn xin nghỉ -->
+                            <td>
+                                <a href="viewReqForMag.jsp" class="btn btn-view">View</a>
+                            </td>
                         </tr>
-                        <!-- More rows can be added here -->
+                        <tr>
+                            <td><a href="#">Xin nghỉ cuối tuần</a></td>
+                            <td>2/1/2025</td>
+                            <td>4/1/2025</td>
+                            <td>Mr D</td>
+                            <td><span class="text-success">Approved</span></td>
+                            <td>Mr C</td>
+                            <td>
+                                <button class="btn btn-delete" onclick="deleteRequest(this)">Xóa</button>
+                            </td>
+                            <!-- Liên kết tới trang xem chi tiết đơn xin nghỉ -->
+                            <td>
+                                <a href="viewReqForMag.jsp" class="btn btn-view">View</a>
+                            </td>
+                        </tr>
                     </tbody>
                 </table>
 
                 <div class="text-center">
-                    <a href="home.jsp" class="btn btn-custom">Quay lại trang chủ</a>
+                    <a href="homeE.jsp" class="btn btn-custom">Quay lại trang chủ</a>
                 </div>
 
             </div>
@@ -170,11 +202,6 @@
                 var row = button.closest("tr");
                 row.remove();
             }
-        }
-
-        function viewRequest(button) {
-            // Cảnh báo chỉ dành cho Manager
-            alert("Chỉ Manager mới có quyền xem chi tiết đơn xin nghỉ.");
         }
     </script>
 </body>

@@ -1,3 +1,5 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html lang="vi">
 <head>
@@ -29,6 +31,9 @@
             font-weight: bold;
             border-top-left-radius: 15px;
             border-top-right-radius: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
 
         .card-body {
@@ -103,6 +108,11 @@
         <div class="card">
             <div class="card-header text-center">
                 Duyệt Đơn Xin Nghỉ Phép
+                <div>
+                    <!-- Thêm các nút Home và Logout -->
+                    <a href="homeE.jsp" class="btn btn-custom">Home</a>
+                    <a href="logout.jsp" class="btn btn-custom">Logout</a>
+                </div>
             </div>
             <div class="card-body">
 

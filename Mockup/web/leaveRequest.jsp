@@ -1,3 +1,5 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html lang="vi">
 <head>
@@ -29,6 +31,9 @@
             font-weight: bold;
             border-top-left-radius: 10px;
             border-top-right-radius: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
 
         .card-body {
@@ -79,14 +84,18 @@
         <div class="card">
             <div class="card-header text-center">
                 Đơn Xin Nghỉ Phép
+                <div>
+                    <a href="homeE.jsp" class="btn btn-custom">Home</a>
+                    <a href="logout.jsp" class="btn btn-custom">Logout</a>
+                </div>
             </div>
             <div class="card-body">
                 <div class="header-info">
-                    <p>User: <strong>An</strong>, Role: <strong>Nhân viên</strong>, Dep: <strong>phòng IT</strong></p>
+                    <p>User: <strong>${user.displayname}</strong>, Role: <strong>Nhân viên</strong>, Dep: <strong>${user.e.department}</strong></p>
                 </div>
 
                 <!-- Form nhập thông tin đơn xin nghỉ phép -->
-                <form action="submitLeaveRequest.html" method="post">
+                <form action="submitLeaveRequest.jsp" method="post">
                     <div class="form-group">
                         <label for="fromDate">Từ ngày:</label>
                         <input type="date" id="fromDate" name="fromDate" class="form-control" required>
@@ -116,4 +125,3 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js"></script>
 </body>
 </html>
-

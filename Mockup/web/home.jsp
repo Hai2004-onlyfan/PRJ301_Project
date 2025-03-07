@@ -6,7 +6,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Employee Dashboard</title>
+    <title>Director Dashboard</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
         body {
@@ -60,13 +60,13 @@
             gap: 15px;
             margin-top: 20px;
         }
-        .welcome-message {
-            margin-top: 20px;
-            font-size: 20px;
-            font-weight: bold;
+        .card-text {
+            cursor: pointer;
+            color: #007bff;
+            text-decoration: underline;
         }
-        .task-cards {
-            margin-top: 30px;
+        .card-text:hover {
+            color: #0056b3;
         }
     </style>
 </head>
@@ -74,10 +74,10 @@
 
     <!-- Phần Header -->
     <header class="bg-primary text-white text-center py-4 mb-4">
-        <h1>Welcome to Company ABC</h1>
-        <p class="lead">Trang quản lý dành cho Employee</p>
+        <h1>Welcome to Company</h1>
+        <p class="lead">Trang quản lý dành cho Director</p>
         <div class="header-links">
-            <a href="homeE.jsp" class="btn-home-logout">Home</a>
+            <a href="home.jsp" class="btn-home-logout">Home</a>
             <a href="login.jsp" class="btn-home-logout">Logout</a>
         </div>
     </header>
@@ -99,36 +99,33 @@
     <!-- Phần Nội Dung Chính -->
     <div class="container">
 
-        <!-- Chào Mừng Nhân Viên -->
-        <div class="welcome-message text-center">
-            <p>Chào mừng bạn, <strong>An</strong> từ Phòng ban: <strong>IT</strong></p>
-        </div>
-
-        <!-- Phần Tạo và Xem Đơn Xin Nghỉ -->
-        <div class="row task-cards g-4">
-
-            <!-- Tạo Đơn Xin Nghỉ -->
+        <!-- Phần Xem Danh Sách Nhân Viên và Thời Gian Hoạt Động -->
+        <div class="row g-4">
+            
+            <!-- Xem Danh Sách Nhân Viên -->
             <div class="col-md-6">
                 <div class="card">
                     <div class="card-header text-center">
-                        Tạo Đơn Xin Nghỉ
+                        Xem Danh Sách Nhân Viên
                     </div>
                     <div class="card-body text-center">
-                        <p class="card-text">Tạo đơn xin nghỉ phép khi bạn cần nghỉ.</p>
-                        <a href="leaveRequest.jsp" class="btn btn-custom">Tạo Đơn</a>
+                        <!-- Giữ card-text dưới dạng văn bản, thêm sự kiện onclick -->
+                        <p class="card-text" onclick="window.location.href='employeeList.jsp'">Xem toàn bộ thông tin về các nhân viên trong công ty.</p>
+                        <a href="employeeList.jsp" class="btn btn-custom">Xem Danh Sách</a>
                     </div>
                 </div>
             </div>
 
-            <!-- Xem Đơn Xin Nghỉ -->
+            <!-- Thời Gian Hoạt Động Của Nhân Viên -->
             <div class="col-md-6">
                 <div class="card">
                     <div class="card-header text-center">
-                        Xem Đơn Xin Nghỉ
+                        Thời Gian Hoạt Động Của Nhân Viên
                     </div>
                     <div class="card-body text-center">
-                        <p class="card-text">Xem các đơn xin nghỉ của bạn đã được duyệt.</p>
-                        <a href="viewRequest.jsp" class="btn btn-custom">Xem Đơn</a>
+                        <!-- Giữ card-text dưới dạng văn bản, thêm sự kiện onclick -->
+                        <p class="card-text" onclick="window.location.href='activityTime.jsp'">Theo dõi thời gian làm việc và hoạt động của các nhân viên trong công ty.</p>
+                        <a href="activityTime.jsp" class="btn btn-custom">Xem Thời Gian</a>
                     </div>
                 </div>
             </div>
