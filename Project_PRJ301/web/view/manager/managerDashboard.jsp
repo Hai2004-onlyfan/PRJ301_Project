@@ -134,7 +134,7 @@
                         Xem Đơn Xin Nghỉ
                     </div>
                     <div class="card-body text-center">
-                        <a href="../../leaverequest/findbydept" class="btn btn-custom">Xem Đơn Xin Nghỉ</a>
+                        <a href="../../leaverequest/viewformag" class="btn btn-custom">Xem Đơn Xin Nghỉ</a>
                     </div>
                 </div>
             </div>

@@ -29,12 +29,20 @@
         <servlet-class>controller.employee.ViewEmployeeFindByDept</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>ApproveLeaveRequestController</servlet-name>
-        <servlet-class>controller.leaverequest.ApproveLeaveRequestController</servlet-class>
+        <servlet-name>ActionRequest</servlet-name>
+        <servlet-class>controller.leaverequest.ActionRequest</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>RejectLeaveRequestController</servlet-name>
-        <servlet-class>controller.leaverequest.RejectLeaveRequestController</servlet-class>
+        <servlet-name>ViewLeaveRequestByEm</servlet-name>
+        <servlet-class>controller.leaverequest.ViewLeaveRequestByEm</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ViewLeaveRequestForE</servlet-name>
+        <servlet-class>controller.leaverequest.ViewLeaveRequestForE</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ViewLeaveRequestForEmp</servlet-name>
+        <servlet-class>controller.leaverequest.ViewLeaveRequestForEmp</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>LoginController</servlet-name>
@@ -65,12 +73,13 @@
         <url-pattern>/employee/view</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>ApproveLeaveRequestController</servlet-name>
-        <url-pattern>/leaverequest/listApprove</url-pattern>
+        <servlet-name>ActionRequest</servlet-name>
+        <url-pattern>/leaverequest/viewformag</url-pattern>
     </servlet-mapping>
+   
     <servlet-mapping>
-        <servlet-name>RejectLeaveRequestController</servlet-name>
-        <url-pattern>/leaverequest/reject</url-pattern>
+        <servlet-name>ViewLeaveRequestForEmp</servlet-name>
+        <url-pattern>/leaverequest/viewforaccount</url-pattern>
     </servlet-mapping>
     <welcome-file-list>
         <welcome-file>view/auth/login.jsp</welcome-file>

@@ -129,7 +129,7 @@
                     </div>
                     <div class="card-body text-center">
                         <p class="card-text">Xem các đơn xin nghỉ của bạn đã được duyệt.</p>
-                        <a href="../../leaverequest/findbydept" class="btn btn-custom">Xem Đơn</a>
+                        <a href="../../leaverequest/viewforaccount" class="btn btn-custom">Xem Đơn</a>
                         
                     </div>
                 </div>

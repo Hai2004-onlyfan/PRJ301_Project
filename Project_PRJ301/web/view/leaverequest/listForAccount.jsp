@@ -5,10 +5,10 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Danh Sách Yêu Cầu Nghỉ</title>
-    <!-- Thêm Bootstrap CSS -->
+    <title>Danh Sách Yêu Cầu Nghỉ Của Bạn</title>
+    <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
         body {
@@ -42,23 +42,6 @@
         .table th {
             text-align: center;
         }
-        .action-buttons {
-            display: flex;
-            justify-content: space-around;
-        }
-        .action-buttons a {
-            padding: 5px 15px;
-            border-radius: 5px;
-            text-decoration: none;
-        }
-        .btn-accept {
-            background-color: #28a745;
-            color: white;
-        }
-        .btn-reject {
-            background-color: #dc3545;
-            color: white;
-        }
     </style>
 </head>
 <body>
@@ -71,37 +54,20 @@
 
         <div class="card">
             <div class="card-header text-center">
-                Danh Sách Yêu Cầu Nghỉ
+                Danh Sách Yêu Cầu Nghỉ Của Bạn
             </div>
             <div class="card-body">
-                <!-- Form chọn phòng ban -->
-                <form id="search" action="findbydept" method="GET" class="mb-4">
-                    <div class="row">
-                        <div class="col-md-4">
-                            <label for="departmentSelect" class="form-label">Chọn Phòng Ban</label>
-                            <select name="did" id="departmentSelect" class="form-select" onchange="document.getElementById('search').submit();">
-                                <option value="-1">---Tất cả---</option>
-                                <c:forEach items="${requestScope.depts}" var="d">
-                                    <option <c:if test="${d.id eq param.did}">selected</c:if> value="${d.id}">${d.name}</option>
-                                </c:forEach>
-                            </select>
-                        </div>
-                    </div>
-                </form>
-
                 <!-- Bảng danh sách yêu cầu nghỉ -->
                 <table class="table table-striped table-bordered table-hover">
                     <thead class="thead-dark">
                         <tr>
-                            <th>Id</th>
-                            <th>Title</th>
-                            <th>Reason</th>
-                            <th>From</th>
-                            <th>To</th>
-                            <th>Created By</th>
-                            <th>Created Date</th>
-                            <th>Status</th>
-                            <th>Action</th> <!-- Cột hành động -->
+                            <th>ID</th>
+                            <th>Tiêu Đề</th>
+                            <th>Lý Do</th>
+                            <th>Từ Ngày</th>
+                            <th>Đến Ngày</th>
+                            <th>Ngày Tạo</th>
+                            <th>Trạng Thái</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -112,19 +78,13 @@
                                 <td>${l.reason}</td>
                                 <td>${l.from}</td>
                                 <td>${l.to}</td>
-                                <td>${l.createdby.displayname}</td>
                                 <td>${l.createddate}</td>
                                 <td>
                                     <c:choose>
-                                        <c:when test="${l.status eq 0}">In Progress</c:when>
-                                        <c:when test="${l.status eq 1}">Rejected</c:when>
-                                        <c:otherwise>Accepted</c:otherwise>
+                                        <c:when test="${l.status eq 0}">Đang Xử Lý</c:when>
+                                        <c:when test="${l.status eq 1}">Bị Từ Chối</c:when>
+                                        <c:otherwise>Đã Chấp Nhận</c:otherwise>
                                     </c:choose>
-                                </td>
-                                <td class="action-buttons">
-                                    <!-- Luôn hiển thị nút này nếu người dùng có quyền là Manager -->
-                                    <a href="acceptLeaveRequest?requestId=${l.id}" class="btn btn-accept">Accept</a>
-                                    <a href="rejectLeaveRequest?requestId=${l.id}" class="btn btn-reject">Reject</a>
                                 </td>
                             </tr>
                         </c:forEach>
@@ -134,7 +94,7 @@
         </div>
     </div>
 
-    <!-- Thêm Bootstrap JS -->
+    <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js"></script>
 

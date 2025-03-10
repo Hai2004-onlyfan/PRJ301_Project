@@ -141,4 +141,161 @@ public class LeaveRequestDBContext extends DBContext<LeaveRequest> {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
+
+public int updateStatus(int rid, int status) {
+       String sql = "UPDATE LeaveRequest SET status = ? WHERE rid = ?";
+    try (PreparedStatement stm = connection.prepareStatement(sql)) {
+        stm.setInt(1, status);   // Cập nhật trạng thái
+        stm.setInt(2, rid);      // Đặt điều kiện WHERE với ID của yêu cầu nghỉ (rid)
+        return stm.executeUpdate();  // Trả về số dòng bị ảnh hưởng (số yêu cầu nghỉ được cập nhật)
+    } catch (SQLException e) {
+        e.printStackTrace();
+        return 0;  // Nếu có lỗi xảy ra, trả về 0 (không có dòng nào được cập nhật)
+    }
+}
+
+public ArrayList<LeaveRequest> getWithAction(Integer did, Integer status) {
+    ArrayList<LeaveRequest> requests = new ArrayList<>();
+    try {
+        String sql = "SELECT r.rid, r.title, r.reason, r.[from], r.[to], u.username, u.displayname,\n"
+                + "r.createddate, r.status,\n"
+                + "d.did, d.dname,\n"
+                + "e.eid, e.ename\n"
+                + "FROM LeaveRequest r\n"
+                + "INNER JOIN Users u ON u.username = r.createdby\n"
+                + "INNER JOIN Employees e ON e.eid = u.eid\n"
+                + "INNER JOIN Departments d ON d.did = e.did";
+
+        // Nếu did không phải null, thêm điều kiện WHERE
+        if (did != null) {
+            sql += " WHERE d.did = ?";
+        }
+
+        // Nếu status không phải null, thêm điều kiện để lọc theo trạng thái
+        if (status != null) {
+            if (did != null) {
+                sql += " AND r.status = ?";
+            } else {
+                sql += " WHERE r.status = ?";
+            }
+        }
+
+        PreparedStatement stm = connection.prepareStatement(sql);
+
+        // Đặt tham số cho truy vấn
+        int paramIndex = 1;
+
+        if (did != null) {
+            stm.setInt(paramIndex++, did);
+        }
+
+        if (status != null) {
+            stm.setInt(paramIndex, status);
+        }
+
+        ResultSet rs = stm.executeQuery();
+
+        // Duyệt qua kết quả và tạo các đối tượng LeaveRequest
+        while (rs.next()) {
+            LeaveRequest r = new LeaveRequest();
+            r.setId(rs.getInt("rid"));
+            r.setTitle(rs.getString("title"));
+            r.setReason(rs.getString("reason"));
+            r.setFrom(rs.getDate("from"));
+            r.setTo(rs.getDate("to"));
+            r.setCreateddate(rs.getTimestamp("createddate"));
+            r.setStatus(rs.getInt("status"));
+
+            User u = new User();
+            u.setUsername(rs.getString("username"));
+            u.setDisplayname(rs.getString("displayname"));
+            r.setCreatedby(u);
+
+            Employee e = new Employee();
+            e.setId(rs.getInt("eid"));
+            e.setName(rs.getString("ename"));
+            u.setE(e);
+
+            Department d = new Department();
+            d.setId(rs.getInt("did"));
+            d.setName(rs.getString("dname"));
+            e.setDept(d);
+
+            // Thêm yêu cầu nghỉ vào danh sách
+            requests.add(r);
+        }
+
+    } catch (SQLException ex) {
+        Logger.getLogger(LeaveRequestDBContext.class.getName()).log(Level.SEVERE, null, ex);
+    } finally {
+        // Đảm bảo đóng kết nối nếu cần thiết
+        if (connection != null) {
+            try {
+                connection.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(LeaveRequestDBContext.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }
+
+    return requests;
+}
+public ArrayList<LeaveRequest> getByEmployee(String username) {
+    ArrayList<LeaveRequest> requests = new ArrayList<>();
+    try {
+        String sql = "SELECT r.rid, r.title, r.reason, r.[from], r.[to], u.username, u.displayname,\n"
+                + "r.createddate, r.status,\n"
+                + "d.did, d.dname,\n"
+                + "e.eid, e.ename\n"
+                + "FROM LeaveRequest r\n"
+                + "INNER JOIN Users u ON u.username = r.createdby\n"
+                + "INNER JOIN Employees e ON e.eid = u.eid\n"
+                + "INNER JOIN Departments d ON d.did = e.did"
+                + " WHERE u.username = ?"; // Lọc theo username
+
+        PreparedStatement stm = connection.prepareStatement(sql);
+        stm.setString(1, username); // Đặt tham số username cho truy vấn
+
+        ResultSet rs = stm.executeQuery();
+
+        while (rs.next()) {
+            LeaveRequest r = new LeaveRequest();
+            r.setId(rs.getInt("rid"));
+            r.setTitle(rs.getString("title"));
+            r.setReason(rs.getString("reason"));
+            r.setFrom(rs.getDate("from"));
+            r.setTo(rs.getDate("to"));
+            r.setCreateddate(rs.getTimestamp("createddate"));
+            r.setStatus(rs.getInt("status"));
+
+            User u = new User();
+            u.setUsername(rs.getString("username"));
+            u.setDisplayname(rs.getString("displayname"));
+            r.setCreatedby(u);
+
+            Employee e = new Employee();
+            e.setId(rs.getInt("eid"));
+            e.setName(rs.getString("ename"));
+            u.setE(e);
+
+            Department d = new Department();
+            d.setId(rs.getInt("did"));
+            d.setName(rs.getString("dname"));
+            e.setDept(d);
+
+            requests.add(r);
+        }
+
+    } catch (SQLException ex) {
+        Logger.getLogger(LeaveRequestDBContext.class.getName()).log(Level.SEVERE, null, ex);
+    } finally {
+        if (connection != null)
+            try {
+                connection.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(LeaveRequestDBContext.class.getName()).log(Level.SEVERE, null, ex);
+            }
+    }
+    return requests;
+}
 }
