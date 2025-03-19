@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.sql.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import models.User;
 
 /**
  *
@@ -187,4 +188,41 @@ public ArrayList<Employee> getByDepartment(Integer did) {
     }
     return employees;
 }
+   public Employee getEmployeeByUser(User user) {
+        Employee emp = null;
+        try {
+            String sql = "SELECT e.eid, e.ename, e.did, d.dname " +
+                         "FROM Employees e " +
+                         "INNER JOIN Departments d ON e.did = d.did " +
+                         "WHERE e.eid = (SELECT eid FROM Users WHERE username = ?)";
+            
+            PreparedStatement stm = connection.prepareStatement(sql);
+            stm.setString(1, user.getUsername());  // Sử dụng username để tìm nhân viên
+
+            ResultSet rs = stm.executeQuery();
+            if (rs.next()) {
+                emp = new Employee();
+                emp.setId(rs.getInt("eid"));
+                emp.setName(rs.getString("ename"));
+                
+                Department dept = new Department();
+                dept.setId(rs.getInt("did"));
+                dept.setName(rs.getString("dname"));
+                
+                emp.setDept(dept);
+            }
+
+        } catch (SQLException ex) {
+            Logger.getLogger(EmployeeDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            if (connection != null) {
+                try {
+                    connection.close();
+                } catch (SQLException ex) {
+                    Logger.getLogger(EmployeeDBContext.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        }
+        return emp;
+    }
 }

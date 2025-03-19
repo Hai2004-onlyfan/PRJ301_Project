@@ -59,6 +59,8 @@
             </div>
             <div class="card-body">
                 <h3 class="text-center">Chào ${sessionScope.user.displayname}</h3>
+                <h3 class="text-center">Role ${sessionScope.role}</h3>
+                <h3 class="text-center">Department ${sessionScope.department}</h3>
                 <form action="create" method="POST">
                     <div class="mb-3">
                         <label for="title" class="form-label">Tiêu Đề</label>

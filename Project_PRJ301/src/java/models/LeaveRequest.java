@@ -12,6 +12,8 @@ import java.sql.Date;
  * @author sonnt-local
  */
 public class LeaveRequest {
+    private String processedBy;
+     private String approvedBy;
     private int id;
     private String title;
     private String reason;
@@ -20,9 +22,26 @@ public class LeaveRequest {
     private User createdby;
     private int status;
     private java.util.Date createddate;
+     private Department dept; 
 
     public int getId() {
         return id;
+    }
+
+    public String getProcessedBy() {
+        return processedBy;
+    }
+
+    public void setProcessedBy(String processedBy) {
+        this.processedBy = processedBy;
+    }
+
+    public Department getDept() {
+        return dept;
+    }
+
+    public void setDept(Department dept) {
+        this.dept = dept;
     }
 
     public void setId(int id) {
@@ -84,5 +103,15 @@ public class LeaveRequest {
     public void setCreateddate(java.util.Date createddate) {
         this.createddate = createddate;
     }
+
+    public String getApprovedBy() {
+        return approvedBy;
+    }
+
+    public void setApprovedBy(String approvedBy) {
+        this.approvedBy = approvedBy;
+    }
+
+  
     
 }

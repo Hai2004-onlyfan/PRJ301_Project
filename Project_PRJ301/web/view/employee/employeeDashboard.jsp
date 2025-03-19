@@ -101,7 +101,7 @@
 
         <!-- Chào Mừng Nhân Viên -->
         <div class="welcome-message text-center">
-            <p>Chào mừng bạn, <strong>An</strong> từ Phòng ban: <strong>IT</strong></p>
+            <p>Chào mừng bạn, <strong>${sessionScope.user.displayname}</strong> từ Phòng ban: <strong>${sessionScope.department}</strong></p>
         </div>
 
         <!-- Phần Tạo và Xem Đơn Xin Nghỉ -->

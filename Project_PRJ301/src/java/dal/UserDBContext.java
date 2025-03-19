@@ -113,5 +113,36 @@ public class UserDBContext extends DBContext<User> {
     public void delete(User model) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
+public User get2(int id) {
+        try {
+            String sql = "SELECT u.username, u.displayname, e.eid, e.ename " +
+                         "FROM Users u INNER JOIN Employees e ON e.eid = u.eid " +
+                         "WHERE u.eid = ?";
+            PreparedStatement stm = connection.prepareStatement(sql);
+            stm.setInt(1, id);
+            ResultSet rs = stm.executeQuery();
 
+            if (rs.next()) {
+                User user = new User();
+                user.setUsername(rs.getString("username"));
+                user.setDisplayname(rs.getString("displayname"));
+                Employee employee = new Employee();
+                employee.setId(rs.getInt("eid"));
+                employee.setName(rs.getString("ename"));
+                user.setE(employee);
+                return user;
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(UserDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            if (connection != null) {
+                try {
+                    connection.close();
+                } catch (SQLException ex) {
+                    Logger.getLogger(UserDBContext.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        }
+        return null;
+    }
 }

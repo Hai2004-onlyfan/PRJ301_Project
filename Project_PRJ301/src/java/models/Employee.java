@@ -20,6 +20,7 @@ public class Employee {
     private Employee manager;
     private ArrayList<Employee> directstaffs = new ArrayList<>();
     private ArrayList<Employee> staffs = new ArrayList<>();
+    
 
     public ArrayList<Employee> getDirectstaffs() {
         return directstaffs;

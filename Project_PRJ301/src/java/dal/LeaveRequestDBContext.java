@@ -298,4 +298,145 @@ public ArrayList<LeaveRequest> getByEmployee(String username) {
     }
     return requests;
 }
+ public ArrayList<LeaveRequest> getByDept2(Integer departmentId) {
+        ArrayList<LeaveRequest> requests = new ArrayList<>();
+        try {
+            // Truy vấn lấy thông tin yêu cầu nghỉ của nhân viên thuộc phòng ban có did = departmentId
+            String sql = "SELECT r.rid, r.title, r.reason, r.[from], r.[to], u.username, u.displayname,\n"
+                    + "r.createddate, r.status,\n"
+                    + "d.did, d.dname,\n"
+                    + "e.eid, e.ename\n"
+                    + "FROM LeaveRequest r\n"
+                    + "INNER JOIN Users u ON u.username = r.createdby\n"
+                    + "INNER JOIN Employees e ON e.eid = u.eid\n"
+                    + "INNER JOIN Departments d ON d.did = e.did"
+                    + " WHERE d.did = ?"; // Lọc theo departmentId (did)
+
+            PreparedStatement stm = connection.prepareStatement(sql);
+            stm.setInt(1, departmentId); // Đặt tham số departmentId cho truy vấn
+
+            ResultSet rs = stm.executeQuery();
+
+            while (rs.next()) {
+                LeaveRequest r = new LeaveRequest();
+                r.setId(rs.getInt("rid"));
+                r.setTitle(rs.getString("title"));
+                r.setReason(rs.getString("reason"));
+                r.setFrom(rs.getDate("from"));
+                r.setTo(rs.getDate("to"));
+                r.setCreateddate(rs.getTimestamp("createddate"));
+                r.setStatus(rs.getInt("status"));
+
+                User u = new User();
+                u.setUsername(rs.getString("username"));
+                u.setDisplayname(rs.getString("displayname"));
+                r.setCreatedby(u);
+
+                Employee e = new Employee();
+                e.setId(rs.getInt("eid"));
+                e.setName(rs.getString("ename"));
+                u.setE(e);
+
+                Department d = new Department();
+                d.setId(rs.getInt("did"));
+                d.setName(rs.getString("dname"));
+                e.setDept(d);
+
+                requests.add(r);
+            }
+
+        } catch (SQLException ex) {
+            Logger.getLogger(LeaveRequestDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            if (connection != null) {
+                try {
+                    connection.close();
+                } catch (SQLException ex) {
+                    Logger.getLogger(LeaveRequestDBContext.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        }
+        return requests;
+    }
+   public LeaveRequest getById(int rid) {
+    LeaveRequest r = null;
+    try {
+        String sql = "SELECT r.rid, r.title, r.reason, r.[from], r.[to], u.username, u.displayname, r.createddate, r.status, "
+                   + "d.did, d.dname, e.eid, e.ename "
+                   + "FROM LeaveRequest r "
+                   + "INNER JOIN Users u ON u.username = r.createdby "
+                   + "INNER JOIN Employees e ON e.eid = u.eid "
+                   + "INNER JOIN Departments d ON d.did = e.did "
+                   + "WHERE r.rid = ?"; // Lọc theo yêu cầu nghỉ (rid)
+
+        PreparedStatement stm = connection.prepareStatement(sql);
+        stm.setInt(1, rid); // Đặt tham số cho rid
+
+        ResultSet rs = stm.executeQuery();
+
+        if (rs.next()) {
+            r = new LeaveRequest();
+            r.setId(rs.getInt("rid"));
+            r.setTitle(rs.getString("title"));
+            r.setReason(rs.getString("reason"));
+            r.setFrom(rs.getDate("from"));
+            r.setTo(rs.getDate("to"));
+            r.setCreateddate(rs.getTimestamp("createddate"));
+            r.setStatus(rs.getInt("status"));
+
+            User u = new User();
+            u.setUsername(rs.getString("username"));
+            u.setDisplayname(rs.getString("displayname"));
+            r.setCreatedby(u);
+
+            Employee e = new Employee();
+            e.setId(rs.getInt("eid"));
+            e.setName(rs.getString("ename"));
+            u.setE(e);
+
+            Department d = new Department();
+            d.setId(rs.getInt("did"));
+            d.setName(rs.getString("dname"));
+            e.setDept(d);
+        }
+    } catch (SQLException ex) {
+        Logger.getLogger(LeaveRequestDBContext.class.getName()).log(Level.SEVERE, null, ex);
+    } finally {
+        if (connection != null) {
+            try {
+                connection.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(LeaveRequestDBContext.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }
+    return r;
+}
+   public int updateApprovedBy(int rid, String approvedBy) {
+    String sql = "UPDATE LeaveRequest SET approvedBy = ? WHERE rid = ?";
+    try (PreparedStatement stm = connection.prepareStatement(sql)) {
+        stm.setString(1, approvedBy);
+        stm.setInt(2, rid);
+        return stm.executeUpdate();
+    } catch (SQLException ex) {
+        Logger.getLogger(LeaveRequestDBContext.class.getName()).log(Level.SEVERE, null, ex);
+    }
+    return 0;
+}
+ public String getApprovedBy(int rid) {
+        String approvedBy = null;
+        String sql = "SELECT approvedBy FROM LeaveRequest WHERE rid = ?";
+        try (PreparedStatement stm = connection.prepareStatement(sql)) {
+            stm.setInt(1, rid);
+            try (ResultSet rs = stm.executeQuery()) {
+                if (rs.next()) {
+                    approvedBy = rs.getString("approvedBy");
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return approvedBy;
+    }
+
 }

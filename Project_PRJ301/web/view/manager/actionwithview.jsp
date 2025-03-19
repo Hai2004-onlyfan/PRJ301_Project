@@ -47,8 +47,16 @@
                 border-radius: 5px;
                 text-decoration: none;
             }
-            .btn-info {
-                background-color: #17a2b8;
+            .btn-accept {
+                background-color: #28a745;
+                color: white;
+            }
+            .btn-reject {
+                background-color: #dc3545;
+                color: white;
+            }
+            .btn-in-progress {
+                background-color: #ffc107;
                 color: white;
             }
         </style>
@@ -118,22 +126,28 @@
                                         </c:choose>
                                     </td>
                                     <td class="action-buttons">
-                                        <!-- Tạo form ẩn riêng biệt cho mỗi đơn yêu cầu -->
-                                        <form id="viewForm${l.id}" action="../leaverequest/findbydepts" method="GET" style="display:none;">
-                                            <input type="hidden" name="rid" value="${l.id}">
+                                        <form action="../leaverequest/viewformag" method="POST" style="display:inline;">
+                                            <input type="hidden" name="rid" value="${l.id}"> <!-- ID yêu cầu nghỉ -->
+                                            <input type="hidden" name="action" value="approve"> <!-- Hành động là "approve" -->
+                                            <button type="submit" class="btn-accept">Approve</button>
                                         </form>
 
-                                        <!-- Nút "View" để gửi form -->
-                                        <a href="javascript:void(0);" class="btn btn-info" onclick="submitForm(${l.id})">View</a>
+                                        <!-- Form POST cho hành động "Reject" -->
+                                        <form action="../leaverequest/viewformag" method="POST" style="display:inline;">
+                                            <input type="hidden" name="rid" value="${l.id}"> <!-- ID yêu cầu nghỉ -->
+                                            <input type="hidden" name="action" value="reject"> <!-- Hành động là "reject" -->
+                                            <button type="submit" class="btn-reject">Reject</button>
+                                        </form>
+
+                                        <!-- Form POST cho hành động "In Progress" -->
+                                        <form action="../leaverequest/viewformag" method="POST" style="display:inline;">
+                                            <input type="hidden" name="rid" value="${l.id}"> <!-- ID yêu cầu nghỉ -->
+                                            <input type="hidden" name="action" value="inprogress"> <!-- Hành động là "inprogress" -->
+                                            <button type="submit" class="btn-in-progress">In Progress</button>
+                                        </form>
                                     </td>
-                            <script>
-                                function submitForm(leaveId) {
-                                    // Nộp form tương ứng với ID đơn yêu cầu
-                                    document.getElementById("viewForm" + leaveId).submit();
-                                }
-                            </script>
-                            </tr>
-                        </c:forEach>
+                                </tr>
+                            </c:forEach>
                         </tbody>
                     </table>
                 </div>

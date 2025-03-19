@@ -8,7 +8,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Danh Sách Yêu Cầu Nghỉ Của Bạn</title>
-    <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
         body {
@@ -39,15 +38,15 @@
             background-color: #218838;
             color: white;
         }
-        .table th {
+        .table th, .table td {
             text-align: center;
+            vertical-align: middle;
         }
     </style>
 </head>
 <body>
 
     <div class="container">
-        <!-- Nút Home -->
         <div class="d-flex justify-content-end mb-3">
             <a href="../view/employee/employeeDashboard.jsp" class="btn-home">🏠 Home</a>
         </div>
@@ -57,7 +56,6 @@
                 Danh Sách Yêu Cầu Nghỉ Của Bạn
             </div>
             <div class="card-body">
-                <!-- Bảng danh sách yêu cầu nghỉ -->
                 <table class="table table-striped table-bordered table-hover">
                     <thead class="thead-dark">
                         <tr>
@@ -68,6 +66,7 @@
                             <th>Đến Ngày</th>
                             <th>Ngày Tạo</th>
                             <th>Trạng Thái</th>
+                            <th>Người Duyệt</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -86,6 +85,7 @@
                                         <c:otherwise>Đã Chấp Nhận</c:otherwise>
                                     </c:choose>
                                 </td>
+                                <td>${approvedByMap[l.id]}</td>
                             </tr>
                         </c:forEach>
                     </tbody>
@@ -94,10 +94,8 @@
         </div>
     </div>
 
-    <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js"></script>
 
 </body>
 </html>
-

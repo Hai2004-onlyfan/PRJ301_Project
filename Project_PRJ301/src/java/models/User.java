@@ -68,4 +68,8 @@ public class User {
     public String toString() {
         return "User{" + "username=" + username + ", password=" + password + ", displayname=" + displayname + ", e=" + e + ", roles=" + roles + '}';
     }
+
+   public Department getDepartment() {
+        return e.getDept(); // Lấy phòng ban từ đối tượng Employee
+    }
 }
