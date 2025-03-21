@@ -85,7 +85,7 @@
                                         <c:otherwise>Đã Chấp Nhận</c:otherwise>
                                     </c:choose>
                                 </td>
-                                <td>${approvedByMap[l.id]}</td>
+                               <td>${l.approvedBy}</td>
                             </tr>
                         </c:forEach>
                     </tbody>

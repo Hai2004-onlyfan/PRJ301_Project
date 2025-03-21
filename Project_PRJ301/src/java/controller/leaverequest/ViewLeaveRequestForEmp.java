@@ -10,8 +10,6 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 
 public class ViewLeaveRequestForEmp extends RequiredAuthenticationBaseController {
 
@@ -20,22 +18,17 @@ public class ViewLeaveRequestForEmp extends RequiredAuthenticationBaseController
         LeaveRequestDBContext db = new LeaveRequestDBContext();
         DepartmentDBContext deptDB = new DepartmentDBContext();
 
-        // Lấy danh sách yêu cầu nghỉ theo username của nhân viên đang đăng nhập
         ArrayList<LeaveRequest> leaves = db.getByEmployee(user.getUsername());
-        Map<Integer, String> approvedByMap = new HashMap<>();
 
         for (LeaveRequest leave : leaves) {
-            String approvedBy = db.getApprovedBy(leave.getId());
-            if (approvedBy != null && !approvedBy.isEmpty()) {
-                approvedByMap.put(leave.getId(), approvedBy);
-            } else {
-                approvedByMap.put(leave.getId(), "N/A"); // Hoặc một giá trị mặc định khác
-            }
-        }
+    String approvedBy = db.getApprovedBy(leave.getId());
+    leave.setApprovedBy((approvedBy == null || approvedBy.isEmpty()) ? "N/A" : approvedBy);
+}
 
-        request.setAttribute("approvedByMap", approvedByMap);
         request.setAttribute("leaves", leaves);
         request.setAttribute("depts", deptDB.list());
+        
+        
 
         request.getRequestDispatcher("../view/leaverequest/listForAccount.jsp").forward(request, response);
     }

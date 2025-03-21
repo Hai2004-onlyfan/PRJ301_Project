@@ -11,6 +11,8 @@ import models.LeaveRequest;
 import models.User;
 import java.util.ArrayList;
 import java.sql.*;
+import java.time.LocalDate;
+import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -439,4 +441,33 @@ public ArrayList<LeaveRequest> getByEmployee(String username) {
         return approvedBy;
     }
 
+ public HashMap<Integer, HashMap<String, String>> getLeaveStatus(String from, String to) {
+    HashMap<Integer, HashMap<String, String>> leaveStatus = new HashMap<>();
+    try {
+        String sql = "SELECT createdBy, `from`, `to` FROM LeaveRequest WHERE `from` <= ? AND `to` >= ? AND status = 'Approved'";
+        PreparedStatement stm = connection.prepareStatement(sql);
+        stm.setString(1, to);
+        stm.setString(2, from);
+        ResultSet rs = stm.executeQuery();
+
+        while (rs.next()) {
+            int empId = rs.getInt("createdBy");
+            Date start = rs.getDate("from");
+            Date end = rs.getDate("to");
+
+            HashMap<String, String> days = leaveStatus.getOrDefault(empId, new HashMap<>());
+            LocalDate startDate = start.toLocalDate();
+            LocalDate endDate = end.toLocalDate();
+
+            for (LocalDate date = startDate; !date.isAfter(endDate); date = date.plusDays(1)) {
+                days.put(date.toString(), "leave");
+            }
+
+            leaveStatus.put(empId, days);
+        }
+    } catch (SQLException ex) {
+        ex.printStackTrace();
+    }
+    return leaveStatus;
+}
 }

@@ -122,7 +122,7 @@
                         Thời Gian Hoạt Động Của Nhân Viên
                     </div>
                     <div class="card-body text-center">
-                        <a href="activityTime.jsp" class="btn btn-custom">Xem Thời Gian</a>
+                        <a href="../../agenda/viewAgenda" class="btn btn-custom">Xem Thời Gian</a>
                     </div>
                 </div>
             </div>

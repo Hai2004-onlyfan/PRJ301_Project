@@ -33,7 +33,7 @@ public class LoginController extends HttpServlet {
             String role = user.getRoles().get(0).getName();
             session.setAttribute("role", role);
             //lỗi department
-            String department = "Phòng ban lỗi"; // Mặc định nếu không có phòng ban
+            String department = null; // Không gán giá trị mặc định
             Employee employee = user.getE();
             if (employee != null) {
                 Department dept = employee.getDept();
@@ -41,7 +41,7 @@ public class LoginController extends HttpServlet {
                     department = dept.getName(); // Lấy phòng ban từ Employee
                 }
             }
-            session.setAttribute("department", department);
+            session.setAttribute("department", department); // Lưu giá trị null hoặc tên phòng ban
             // Chuyển hướnString role = user.getRoles().get(0).getName();g dựa trên vai trò người dùng
             String redirectURL = "view/employee/employeeDashboard.jsp"; // Mặc định là Employee
 
